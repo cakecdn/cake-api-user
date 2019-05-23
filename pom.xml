@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>net.cakecdn.endpoint</groupId>
-    <artifactId>cake-endpoint-user</artifactId>
+    <artifactId>cake-api-user</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>cake-endpoint-user</name>
+    <name>cake-api-user</name>
     <description>CakeCDN user RESTFul API endpoint.</description>
 
     <properties>
