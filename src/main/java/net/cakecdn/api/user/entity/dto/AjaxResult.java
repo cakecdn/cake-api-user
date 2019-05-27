@@ -12,6 +12,13 @@ public class AjaxResult {
     private AjaxResult() {
     }
 
+    public static AjaxResult whether(Object o) {
+        if (null != o)
+            return AjaxResult.success(o);
+        else
+            return AjaxResult.failure();
+    }
+
     public static AjaxResult whether(boolean success) {
         if (success)
             return AjaxResult.success();

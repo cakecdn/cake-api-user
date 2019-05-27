@@ -16,19 +16,8 @@ public class UserProfileController {
         this.userProfileService = userProfileService;
     }
 
-    @PostMapping("/users/{userId}/traffic")
-    public AjaxResult traffic(
-            @PathVariable Long userId,
-            @RequestBody Long trafficBytes
-    ) {
-        return AjaxResult.success(userProfileService.updateTraffics(userId, trafficBytes));
-    }
-
-    @PostMapping("/users/{userId}/traffic-reduce")
-    public AjaxResult trafficReduce(
-            @PathVariable Long userId,
-            @RequestBody Long trafficBytesReduce
-    ) {
-        return AjaxResult.success(userProfileService.reduceTraffics(userId, trafficBytesReduce));
+    @GetMapping
+    public AjaxResult getProfile(@RequestParam Long userId) {
+        return AjaxResult.success(userProfileService.getUserProfile(userId));
     }
 }

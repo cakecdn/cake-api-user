@@ -19,29 +19,8 @@ public class UserProfileServiceImpl implements UserProfileService {
     }
 
     @Override
-    public long getTrafficBytes(Long userId) {
+    public UserProfile getUserProfile(Long userId) {
         Optional<UserProfile> userProfileOpt = userProfileRepository.findByUserId(userId);
-
-        return userProfileOpt.orElse(new UserProfile(userId, 0L)).getTotalTrafficBytes();
+        return userProfileOpt.orElse(new UserProfile(userId, 0L, 0L));
     }
-
-    public long updateTraffics(Long userId, Long trafficBytes) {
-        Optional<UserProfile> userProfileOpt = userProfileRepository.findByUserId(userId);
-
-        UserProfile userProfile = userProfileOpt.orElse(new UserProfile(userId, trafficBytes));
-        userProfile.setTotalTrafficBytes(trafficBytes);
-
-        return userProfile.getTotalTrafficBytes();
-    }
-
-    @Override
-    public long reduceTraffics(Long userId, Long trafficBytesReduce) {
-        Optional<UserProfile> userProfileOpt = userProfileRepository.findByUserId(userId);
-
-        UserProfile userProfile = userProfileOpt.orElse(new UserProfile(userId, 0L));
-        userProfile.setTotalTrafficBytes(userProfile.getTotalTrafficBytes() - trafficBytesReduce);
-
-        return userProfile.getTotalTrafficBytes();
-    }
-
 }

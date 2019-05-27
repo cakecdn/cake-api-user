@@ -16,5 +16,6 @@ import javax.persistence.Id;
 public class UserProfile {
     @Id
     private Long userId;
-    private Long totalTrafficBytes;
+    private Long unusedTrafficBytes;
+    private Long usedTrafficBytes;
 }

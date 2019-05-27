@@ -1,9 +1,7 @@
 package net.cakecdn.api.user.service;
 
+import net.cakecdn.api.user.entity.UserProfile;
+
 public interface UserProfileService {
-    long getTrafficBytes(Long userId);
-
-    long updateTraffics(Long userId, Long trafficBytes);
-
-    long reduceTraffics(Long userId, Long trafficBytesReduce);
+    UserProfile getUserProfile(Long userId);
 }
