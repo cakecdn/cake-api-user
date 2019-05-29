@@ -5,9 +5,9 @@ import net.cakecdn.api.user.entity.UserRemainingTraffic;
 import java.util.Map;
 
 public interface UserTrafficService {
-    Map<Long, Long> useTraffics(Map<Long, Long> usingMap);
-
     UserRemainingTraffic getTraffics(Long userId);
 
     UserRemainingTraffic useTraffics(Long userId, Long using);
+
+    Map<Long, Long> useTraffics(Map<Long, Long> usingMap, String nodeName);
 }

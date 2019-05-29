@@ -30,28 +30,6 @@ public class UserTrafficServiceImpl implements UserTrafficService {
     }
 
     @Override
-    @Transactional
-    public Map<Long, Long> useTraffics(Map<Long, Long> usingMap) {
-        List<UserRemainingTraffic> userRemainingTraffics = userRemainingTrafficRepository.findAll();
-        Map<Long, Long> userRemainingTrafficMap = UserRemainingTraffic.toMap(userRemainingTraffics);
-        List<UserTrafficLog> trafficLogs = new ArrayList<>();
-
-        for (Map.Entry<Long, Long> e : usingMap.entrySet()) {
-            Long userId = e.getKey();
-            Long using = e.getValue();
-            Long newRemainingTraffic = userRemainingTrafficMap.getOrDefault(userId, 0L) - using;
-            userRemainingTrafficMap.put(userId, newRemainingTraffic);
-            trafficLogs.add(new UserTrafficLog(userId, using));
-        }
-
-        List<UserRemainingTraffic> userRemainingTrafficList = UserRemainingTraffic.toList(userRemainingTrafficMap);
-        userRemainingTrafficRepository.saveAll(userRemainingTrafficList);
-        userTrafficLogRepository.saveAll(trafficLogs);
-
-        return userRemainingTrafficMap;
-    }
-
-    @Override
     public UserRemainingTraffic getTraffics(Long userId) {
         Optional<UserRemainingTraffic> userProfileOpt = userRemainingTrafficRepository.findByUserId(userId);
         UserRemainingTraffic userRemainingTraffic = userProfileOpt.orElse(new UserRemainingTraffic(userId, 0L));
@@ -66,5 +44,27 @@ public class UserTrafficServiceImpl implements UserTrafficService {
         remainingTraffic.setRemainingTrafficBytes(remainingTraffic.getRemainingTrafficBytes() - using);
         userRemainingTrafficRepository.save(remainingTraffic);
         return remainingTraffic;
+    }
+
+    @Override
+    @Transactional
+    public Map<Long, Long> useTraffics(Map<Long, Long> usingMap, String nodeName) {
+        List<UserRemainingTraffic> userRemainingTraffics = userRemainingTrafficRepository.findAll();
+        Map<Long, Long> userRemainingTrafficMap = UserRemainingTraffic.toMap(userRemainingTraffics);
+        List<UserTrafficLog> trafficLogs = new ArrayList<>();
+
+        for (Map.Entry<Long, Long> e : usingMap.entrySet()) {
+            Long userId = e.getKey();
+            Long using = e.getValue();
+            Long newRemainingTraffic = userRemainingTrafficMap.getOrDefault(userId, 0L) - using;
+            userRemainingTrafficMap.put(userId, newRemainingTraffic);
+            trafficLogs.add(new UserTrafficLog(userId, using, nodeName));
+        }
+
+        List<UserRemainingTraffic> userRemainingTrafficList = UserRemainingTraffic.toList(userRemainingTrafficMap);
+        userRemainingTrafficRepository.saveAll(userRemainingTrafficList);
+        userTrafficLogRepository.saveAll(trafficLogs);
+
+        return userRemainingTrafficMap;
     }
 }

@@ -25,11 +25,12 @@ public class SystemUserTrafficController {
         return userTrafficService.getTraffics(userId);
     }
 
-    @PostMapping
+    @PostMapping("/node/{nodeName}")
     public Map<Long, Long> useTraffics(
-            @RequestBody Map<Long, Long> usedTrafficMap
+            @RequestBody Map<Long, Long> usedTrafficMap,
+            @PathVariable String nodeName
     ) {
-        return userTrafficService.useTraffics(usedTrafficMap);
+        return userTrafficService.useTraffics(usedTrafficMap, nodeName);
     }
 
     @PostMapping("/exchange")
