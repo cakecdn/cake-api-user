@@ -1,11 +1,13 @@
 package net.cakecdn.api.user.web.system;
 
 import net.cakecdn.api.user.entity.UserRemainingTraffic;
+import net.cakecdn.api.user.entity.dto.AjaxResult;
 import net.cakecdn.api.user.service.UserTrafficService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/system/user-traffics")
@@ -23,21 +25,5 @@ public class SystemUserTrafficController {
             @RequestParam Long userId
     ) {
         return userTrafficService.getTraffics(userId);
-    }
-
-    @PostMapping("/node/{nodeName}")
-    public Map<Long, Long> useTraffics(
-            @RequestBody Map<Long, Long> usedTrafficMap,
-            @PathVariable String nodeName
-    ) {
-        return userTrafficService.useTraffics(usedTrafficMap, nodeName);
-    }
-
-    @PostMapping("/exchange")
-    public UserRemainingTraffic useTraffics(
-            @RequestParam Long userId,
-            @RequestBody Long trafficBytes
-    ) {
-        return userTrafficService.useTraffics(userId, trafficBytes);
     }
 }
