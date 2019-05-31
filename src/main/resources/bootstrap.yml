@@ -5,6 +5,7 @@ cake:
     database: ${CAKE_DB_DATABASE:cake_db_sample_database}
     username: ${CAKE_DB_USERNAME:cake_db_sample_username}
     password: ${CAKE_DB_PASSWORD:cake_db_sample_password}
+    time-zone: 0  # 请手动配置数据库时区，默认为0时区。
 
 spring:
   application:

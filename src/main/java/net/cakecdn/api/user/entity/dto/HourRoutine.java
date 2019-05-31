@@ -16,18 +16,59 @@ public enum HourRoutine {
         this.hour = hour;
     }
 
-    public int hourIncrease() {
+    private int increase() {
         int hour = this.hour;
         if (hour == 23) {
             return 0;
         } else return hour + 1;
     }
 
-    public HourRoutine hourGo() {
-        return getHour(this.hourIncrease());
+    private int increase(int hours) {
+        for (int i = 0; i < hours; i++) {
+            hour = this.increase();
+        }
+        return hour;
     }
 
-    public static HourRoutine getHour(int hour) {
+    private int decrease() {
+        int hour = this.hour;
+        if (hour == 0) {
+            return 23;
+        } else return hour - 1;
+    }
+
+    private int decrease(int hours) {
+        for (int i = 0; i > hours; i--) {
+            hour = this.decrease();
+        }
+        return hour;
+    }
+
+    public HourRoutine hourIncrease() {
+        return hour(this.increase());
+    }
+
+    public HourRoutine hourIncrease(int hours) {
+        return hour(this.increase(hours));
+    }
+
+    public HourRoutine hourDecrease() {
+        return hour(this.decrease());
+    }
+
+    public HourRoutine hourDecrease(int hours) {
+        return hour(this.decrease(hours));
+    }
+
+    public HourRoutine hourStep(int hours) {
+        if (hours > 0) {
+            return this.hourIncrease(hours);
+        } else {
+            return this.hourDecrease(hours);
+        }
+    }
+
+    public static HourRoutine hour(int hour) {
         switch (hour) {
             case 1:
                 return ONE;
